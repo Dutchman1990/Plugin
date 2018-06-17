@@ -1,0 +1,1 @@
+Plugin for CSV to MysQl import.
