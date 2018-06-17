@@ -2,11 +2,11 @@
 /**
 *@package Share Price Updater
 *Plugin Name: Share Price Uploader
-*Plugin URI: https://facebook.com
+*Plugin URI: https://github.com/Dutchman1990/Plugin-SharePrice
 *Description: An Custom Pluging for Share Price Updater via CSV File.
 *Version: 1.0.0
 *Author: DutchMan1990
-*Author URI: https://facebook.com
+*Author URI: https://github.com/Dutchman1990/
 *Licence:
 *Text Domain: price-updater
 */
