@@ -1,15 +1,18 @@
 <div class="container">
-    <h2>Import CSV File Data into MySQL Database using PHP</h2>
+    <h2>Upload share price via CSV file.</h2>
     <div class="panel panel-default">
         <div class="panel-heading">
         </div>
         <div class="panel-body">
             <form action="<?php echo home_url('/'); ?>wp-admin/admin.php?page=shareprice_upload" method="post" enctype="multipart/form-data" id="importFrm">
-                <input type="file" name="file" />
-                <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
+              	<input type="file" class="fle" name="file" />
+                <input type="submit" class="button button-primary button-large" name="importSubmit" value="IMPORT">
             </form>
         </div>
     </div>
+    <?php if(!empty($statusMsg)){
+        echo '<div class="alert '.$statusMsgClass.'">'.$statusMsg.'</div>';
+    } ?>
 </div>
 <?php
 global $wpdb;
@@ -44,17 +47,19 @@ if(isset($_POST['importSubmit'])){
                     $wpdb->query("INSERT INTO shareprice(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
                 }
             }
-            
+            echo '<div class="imprted">Data imported.</div>';
             //close opened csv file
             fclose($csvFile);
 
-            $qstring = '?status=succ';
+            //$qstring = '?status=succ';
         }else{
-            $qstring = '?status=err';
+            //$qstring = '?status=err';
+            echo '<div class="erroccr">An error occured. Please try again.</div>';
         }
     }else{
-        $qstring = '?status=invalid_file';
+        //$qstring = '?status=invalid_file';
+        echo '<div class="invalidflie">Not a CSV File.</div>';
     }
 }
-
+header("Location:<?php echo home_url('/'); ?>wp-admin/admin.php?page=shareprice_upload&".$qstring);
 ?>

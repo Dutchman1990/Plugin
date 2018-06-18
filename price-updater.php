@@ -23,10 +23,10 @@ class PriceUpdater{
 
 	function init(){
 		add_action( 'admin_menu', array($this,'PriceUpdateMenu'));
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		//add_action( 'admin_init', array($this,'menu_output'));
 	}
-
-
+	
 	function activate(){
 		flush_rewrite_rules();
 	}
@@ -45,9 +45,12 @@ class PriceUpdater{
     	add_menu_page('Upload Share Prices in CSV format', 'Price Upload', 'manage_options', 'shareprice_upload', array($this,'admin_index'),'dashicons-tickets',100 );
 	}
 
-	public function admin_index()
-	{
+	public function admin_index(){
 		require_once plugin_dir_path( __FILE__ ). 'template/admin.php';
+	}
+	function enqueue() {
+		wp_enqueue_style( 'maincss', plugins_url( '/assets/css/maincss.css', __FILE__ ) );
+		//wp_enqueue_script( 'mypluginscript', plugins_url( '/assets/myscript.js', __FILE__ ) );
 	}
 }
 
