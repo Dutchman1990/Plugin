@@ -61,5 +61,5 @@ if(isset($_POST['importSubmit'])){
         echo '<div class="invalidflie">Not a CSV File.</div>';
     }
 }
-header("Location:<?php echo home_url('/'); ?>wp-admin/admin.php?page=shareprice_upload&".$qstring);
+
 ?>

@@ -50,7 +50,9 @@ class PriceUpdater{
 	}
 	function enqueue() {
 		wp_enqueue_style( 'maincss', plugins_url( '/assets/css/maincss.css', __FILE__ ) );
-		//wp_enqueue_script( 'mypluginscript', plugins_url( '/assets/myscript.js', __FILE__ ) );
+		wp_enqueue_script( 'jquery', plugins_url( '/assets/js/jquery.js', __FILE__ ) );
+		    //wp_enqueue_script( 'my_custom_script', plugin_dir_url() . '/SharePrice/assets/js/jquery-3.3.1.js' );
+
 	}
 }
 
