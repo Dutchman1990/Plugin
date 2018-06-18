@@ -28,21 +28,21 @@ if(isset($_POST['importSubmit'])){
             
             //parse data from csv file line by line
             while(($line = fgetcsv($csvFile)) !== FALSE){
-                //$prevQuery = $wpdb->get_var("SELECT * FROM shareprice where DATE='".$line[1]."'");
-                //$getidd = $wpdb->get_results("SELECT ID FROM shareprice where DATE='".$line[1]."'");
-                //if($prevQuery > 0){
-                    //foreach ($getidd as $keys) {
-                        //$wpdb->query("UPDATE shareprice SET TICKER = '".$line[0]."', DATE = '".$line[1]."', OPEN = '".$line[2]."', HIGH = '".$line[3]."', LOW = '".$line[4]."', CLOSE = '".$line[5]."',VOLUME = '".$line[6]."',ADJCLOSE = '".$line[7]."' ");
-                    //}
-                  //$wpdb->query("UPDATE shareprice SET TICKER = '".$line[0]."', DATE = '".$line[1]."', OPEN = '".$line[2]."', HIGH = '".$line[3]."', LOW = '".$line[4]."', CLOSE = '".$line[5]."',VOLUME = '".$line[6]."',ADJCLOSE = '".$line[7]."', WHERE ID = '".$getID."'");
-                //}
-                //elseif($prevQuery==0){
+                $prevQuery = $wpdb->get_var("SELECT * FROM shareprice where TICKER='".$line[0]."' AND DATE='".$line[1]."'" );
+                $getidd = $wpdb->get_results("SELECT ID FROM shareprice where TICKER='".$line[0]."' AND DATE='".$line[1]."'");
+                if($prevQuery > 0){
+                    foreach ($getidd as $keys) {
+                    	$tblid=$keys->ID;
+                        $wpdb->query("UPDATE shareprice SET TICKER = '".$line[0]."', DATE = '".$line[1]."', OPEN = '".$line[2]."', HIGH = '".$line[3]."', LOW = '".$line[4]."', CLOSE = '".$line[5]."',VOLUME = '".$line[6]."',ADJCLOSE = '".$line[7]."', WHERE ID = '".$tblid."'");
+                    }
+                }
+                elseif($prevQuery==0){
 
-                //$wpdb->query("INSERT INTO shareprice(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
-               // }
-                //else{
+                $wpdb->query("INSERT INTO shareprice(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
+                }
+                else{
                     $wpdb->query("INSERT INTO shareprice(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
-                //}
+                }
             }
             
             //close opened csv file
