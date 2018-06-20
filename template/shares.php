@@ -4,12 +4,11 @@
         <div class="panel-heading">
         </div>
         <div class="panel-body">
-            <form action="<?php echo home_url('/'); ?>wp-admin/admin.php?page=shareprice_upload" method="post" enctype="multipart/form-data" id="importFrm">
-              	<input type="file" class="fle" name="file" />
-                <!-- <div class="fileUpload btn btn-primary">
-                    <span class="spn">Upload</span> 
-                    <input type="file" class="upload" /> 
-                </div> -->
+            <form action="<?php echo home_url('/'); ?>wp-admin/admin.php?page=share_upload" method="post" enctype="multipart/form-data" id="importFrm">
+              	<div class="file-upload">
+                    <label for="upload" class="file-upload__label">Choose File <span><img src="<?php echo plugin_dir_url(''); ?>Dividend/assets/images/upload-button.png"></span></label>
+                    <input id="upload" class="file-upload__input" type="file" name="file-upload">
+                </div>
                 <input type="submit" class="button button-primary button-large" name="importSubmit" value="IMPORT">
             </form>
         </div>
@@ -35,21 +34,21 @@ if(isset($_POST['importSubmit'])){
             
             //parse data from csv file line by line
             while(($line = fgetcsv($csvFile)) !== FALSE){
-                $prevQuery = $wpdb->get_var("SELECT * FROM shareprice where TICKER='".$line[0]."' AND DATE='".$line[1]."'" );
-                $getidd = $wpdb->get_results("SELECT ID FROM shareprice where TICKER='".$line[0]."' AND DATE='".$line[1]."'");
+                $prevQuery = $wpdb->get_var("SELECT * FROM share_prices where TICKER='".$line[0]."' AND DATE='".$line[1]."'" );
+                $getidd = $wpdb->get_results("SELECT ID FROM share_prices where TICKER='".$line[0]."' AND DATE='".$line[1]."'");
                 
                 if($prevQuery > 0){
                     foreach ($getidd as $keys) {
                     	$tblid=$keys->ID;
-                        $wpdb->query("UPDATE shareprice SET TICKER = '".$line[0]."', DATE = '".$line[1]."', OPEN = '".$line[2]."', HIGH = '".$line[3]."', LOW = '".$line[4]."', CLOSE = '".$line[5]."',VOLUME = '".$line[6]."',ADJCLOSE = '".$line[7]."', WHERE ID = '".$tblid."'");
+                        $wpdb->query("UPDATE share_prices SET TICKER = '".$line[0]."', DATE = '".$line[1]."', OPEN = '".$line[2]."', HIGH = '".$line[3]."', LOW = '".$line[4]."', CLOSE = '".$line[5]."',VOLUME = '".$line[6]."',ADJCLOSE = '".$line[7]."', WHERE ID = '".$tblid."'");
                     }
                 }
                 elseif($prevQuery==0){
 
-                $wpdb->query("INSERT INTO shareprice(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
+                $wpdb->query("INSERT INTO share_prices(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
                 }
                 else{
-                    $wpdb->query("INSERT INTO shareprice(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
+                    $wpdb->query("INSERT INTO share_prices(TICKER,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJCLOSE) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."','".$line[4]."','".$line[5]."','".$line[6]."','".$line[7]."')");
                 }
             }
             echo '<div class="imprted">Data imported.</div>';

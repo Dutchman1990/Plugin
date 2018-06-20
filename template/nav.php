@@ -5,7 +5,10 @@
         </div>
         <div class="panel-body">
             <form action="<?php echo home_url('/'); ?>wp-admin/admin.php?page=nav_upload" method="post" enctype="multipart/form-data" id="importFrm">
-              	<input type="file" class="fle" name="file" />
+              	<div class="file-upload">
+                    <label for="upload" class="file-upload__label">Choose File <span><img src="<?php echo plugin_dir_url(''); ?>Dividend/assets/images/upload-button.png"></span></label>
+                    <input id="upload" class="file-upload__input" type="file" name="file-upload">
+                </div>
                 <input type="submit" class="button button-primary button-large" name="importSubmit" value="IMPORT">
             </form>
         </div>
@@ -31,21 +34,21 @@ if(isset($_POST['importSubmit'])){
             
             //parse data from csv file line by line
             while(($line = fgetcsv($csvFile)) !== FALSE){
-                $prevQuery = $wpdb->get_var("SELECT * FROM navdata where TICKER='".$line[0]."' AND NAVDATE='".$line[1]."' AND PAID='".$line[4]."'" );
-                $getidd = $wpdb->get_results("SELECT ID FROM navdata where TICKER='".$line[0]."' AND NAVDATE='".$line[1]."' AND PAID='".$line[4]."'");
+                $prevQuery = $wpdb->get_var("SELECT * FROM navdata where TICKER='".$line[0]."' AND DATE='".$line[1]."' ");
+                $getidd = $wpdb->get_results("SELECT ID FROM navdata where TICKER='".$line[0]."' AND DATE='".$line[1]."' ");
                 
                 if($prevQuery > 0){
                     foreach ($getidd as $keys) {
                     	$tblid=$keys->ID;
-                        $wpdb->query("UPDATE navdata SET TICKER = '".$line[0]."', NAVDATE='".$line[1]."' , PRE_NAV='".$line[2]."' , POST_NAV = '".$line[3]."', WHERE ID = '".$tblid."'");
+                        $wpdb->query("UPDATE navdata SET TICKER = '".$line[0]."', DATE='".$line[1]."' , PRE_NAV='".$line[2]."' , POST_NAV = '".$line[3]."', WHERE ID = '".$tblid."'");
                     }
                 }
                 elseif($prevQuery==0){
 
-                $wpdb->query("INSERT INTO navdata(TICKER,NAVDATE,PRE_NAV,POST_NAV) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."')");
+                $wpdb->query("INSERT INTO navdata(TICKER,DATE,PRE_NAV,POST_NAV) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."')");
                 }
                 else{
-                    $wpdb->query("INSERT INTO navdata(TICKER,NAVDATE,PRE_NAV,POST_NAV) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."')");
+                    $wpdb->query("INSERT INTO navdata(TICKER,DATE,PRE_NAV,POST_NAV) VALUES ('".$line[0]."','".$line[1]."','".$line[2]."','".$line[3]."')");
                 }
             }
             echo '<div class="imprted">Data imported.</div>';
