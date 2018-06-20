@@ -3,7 +3,7 @@
 *@package CSV Data Uploader
 *Plugin Name: CSV Uploader
 *Plugin URI: https://github.com/Dutchman1990/Plugin-SharePrice
-*Description: An Custom Pluging for Share Price Updater via CSV File.
+*Description: An Custom Pluging for upload Dividend Data,Share Price and NAV Data via CSV File.
 *Version: 1.0.0
 *Author: DutchMan1990
 *Author URI: https://github.com/Dutchman1990/
@@ -42,7 +42,7 @@ class DividendUpdater{
 	//register menu for sidebar
 	public function DividendUpdateMenu(){
     	add_menu_page('Upload Data in CSV format', 'CSV Uploader', 'manage_options', 'upload_data', array($this,'mainadmin'),'dashicons-tickets',100 );
-    	add_submenu_page( 'upload_data', 'navdata Data Upload', 'navdata Upload', 'manage_options', 'dividend_upload', array($this,'dividend_index'));
+    	add_submenu_page( 'upload_data', 'Dividend Data Upload', 'Dividend Upload', 'manage_options', 'dividend_upload', array($this,'dividend_index'));
     	add_submenu_page( 'upload_data', 'Share Price Upload', 'Share Price Upload', 'manage_options', 'share_upload', array($this,'share_index'));
     	add_submenu_page( 'upload_data', 'Nav Data Upload', 'NAV Upload', 'manage_options', 'nav_upload', array($this,'nav_index'));
 	}
