@@ -1,14 +1,14 @@
 <?php
 /**
-*@package Dividend Uploader
-*Plugin Name: Dividend Uploader
+*@package CSV Data Uploader
+*Plugin Name: CSV Uploader
 *Plugin URI: https://github.com/Dutchman1990/Plugin-SharePrice
 *Description: An Custom Pluging for Share Price Updater via CSV File.
 *Version: 1.0.0
 *Author: DutchMan1990
 *Author URI: https://github.com/Dutchman1990/
 *Licence:
-*Text Domain: dividend-updater
+*Text Domain: csvdata-updater
 */
 
 if ( ! defined( 'ABSPATH')) {
@@ -23,9 +23,7 @@ class DividendUpdater{
 
 	function init(){
 		add_action( 'admin_menu', array($this,'DividendUpdateMenu'));
-		//add_action( 'admin_menu', array($this,'ShareUpdateMenu'));
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-		//add_action( 'admin_init', array($this,'menu_output'));
 	}
 	
 	function activate(){
@@ -43,25 +41,25 @@ class DividendUpdater{
 
 	//register menu for sidebar
 	public function DividendUpdateMenu(){
-    	add_menu_page('Upload Data in CSV format', 'Upload', 'manage_options', 'upload_data', array($this,'mainadmin'),'dashicons-tickets',100 );
-    	add_submenu_page( 'upload_data', 'Dividend Upload', 'Dividend Upload', 'manage_options', 'dividend_upload', array($this,'dividend_index'));
-    	add_submenu_page( 'upload_data', 'Share Price Upload', 'Share Upload', 'manage_options', 'share_upload', array($this,'share_index'));
+    	add_menu_page('Upload Data in CSV format', 'CSV Uploader', 'manage_options', 'upload_data', array($this,'mainadmin'),'dashicons-tickets',100 );
+    	add_submenu_page( 'upload_data', 'navdata Data Upload', 'navdata Upload', 'manage_options', 'dividend_upload', array($this,'dividend_index'));
+    	add_submenu_page( 'upload_data', 'Share Price Upload', 'Share Price Upload', 'manage_options', 'share_upload', array($this,'share_index'));
+    	add_submenu_page( 'upload_data', 'Nav Data Upload', 'NAV Upload', 'manage_options', 'nav_upload', array($this,'nav_index'));
 	}
 
-	//public function ShareUpdateMenu(){
-    	//add_submenu_page( 'dividend_upload', 'Share price Upload', 'Share Upload', 'manage_options', 'share_upload', array($this,'share'));
-
-	//}
 	public function mainadmin(){
 			require_once plugin_dir_path( __FILE__ ). 'template/admin.php';
 		}
 	public function dividend_index(){
-		require_once plugin_dir_path( __FILE__ ). 'template/dividend.php';
-		//require_once plugin_dir_path( __FILE__ ). 'template/shares.php';
+		require_once plugin_dir_path( __FILE__ ). 'template/navdata.php';
 	}
 
 	public function share_index(){
 		require_once plugin_dir_path( __FILE__ ). 'template/shares.php';
+	}
+
+	public function nav_index(){
+		require_once plugin_dir_path( __FILE__ ). 'template/nav.php';
 	}
 
 	function enqueue() {
