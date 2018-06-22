@@ -28,7 +28,6 @@ class DividendUpdater{
 	function init(){
 		add_action( 'admin_menu', array($this,'DividendUpdateMenu'));
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action('admin_enqueue_scripts', 'admin_load_js');
 	}
 	
 	function activate(){
