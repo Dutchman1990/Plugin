@@ -11,14 +11,11 @@
                     <input type="file" class="upload" /> 
                 </div> -->
                 
-                <div class="file-upload">
-                    <label for="upload" class="file-upload__label">Choose File <span><img src="<?php echo plugin_dir_url(''); ?>Dividend/assets/images/upload-button.png"></span></label>
-                    <input id="upload" class="file-upload__input" type="file" name="file-upload">
-                </div>
-                
+                <input type="file" class="fle" name="file" />
                 <input type="submit" class="button button-primary button-large" name="importSubmit" value="IMPORT">
             </form>
         </div>
+        <p>Date: <input type="text" id="datepicker"> <input type="submit" id="sbt" name="" value="date"></p>
     </div>
     <?php if(!empty($statusMsg)){
         echo '<div class="alert '.$statusMsgClass.'">'.$statusMsg.'</div>';
@@ -74,3 +71,15 @@ if(isset($_POST['importSubmit'])){
 }
 
 ?>
+
+<script type="text/javascript">
+    +function($){
+        $( "#datepicker" ).datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+       $('#sbt').click(function(){
+        var date = $("#datepicker").val();
+        alert(date);
+       })
+    }(jQuery);
+</script>

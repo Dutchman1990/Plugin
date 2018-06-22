@@ -5,10 +5,7 @@
         </div>
         <div class="panel-body">
             <form action="<?php echo home_url('/'); ?>wp-admin/admin.php?page=share_upload" method="post" enctype="multipart/form-data" id="importFrm">
-              	<div class="file-upload">
-                    <label for="upload" class="file-upload__label">Choose File <span><img src="<?php echo plugin_dir_url(''); ?>Dividend/assets/images/upload-button.png"></span></label>
-                    <input id="upload" class="file-upload__input" type="file" name="file-upload">
-                </div>
+              	<input type="file" class="fle" name="file" />
                 <input type="submit" class="button button-primary button-large" name="importSubmit" value="IMPORT">
             </form>
         </div>
